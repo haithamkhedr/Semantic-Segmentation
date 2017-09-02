@@ -4,6 +4,7 @@ from copy import deepcopy
 from glob import glob
 from unittest import mock
 
+
 import numpy as np
 import tensorflow as tf
 
@@ -37,14 +38,13 @@ def _assert_tensor_shape(tensor, shape, display_name):
     assert not wrong_dimension, \
         '{} has wrong shape.  Found {}'.format(display_name, tensor_shape)
 
-
 class TmpMock(object):
     """
     Mock a attribute.  Restore attribute when exiting scope.
     """
     def __init__(self, module, attrib_name):
         self.original_attrib = deepcopy(getattr(module, attrib_name))
-        setattr(module, attrib_name, mock.MagicMock())
+        setattr(module, attrib_name, mock.MagicMock(name='tf model Load'))
         self.module = module
         self.attrib_name = attrib_name
 
@@ -54,11 +54,11 @@ class TmpMock(object):
     def __exit__(self, type, value, traceback):
         setattr(self.module, self.attrib_name, self.original_attrib)
 
-
 @test_safe
-def test_load_vgg(load_vgg, tf_module):
+def test_load_vgg(load_vgg, vgg_path, tf_module):
+    
     with TmpMock(tf_module.saved_model.loader, 'load') as mock_load_model:
-        vgg_path = ''
+          
         sess = tf.Session()
         test_input_image = tf.placeholder(tf.float32, name='image_input')
         test_keep_prob = tf.placeholder(tf.float32, name='keep_prob')
@@ -67,12 +67,10 @@ def test_load_vgg(load_vgg, tf_module):
         test_vgg_layer7_out = tf.placeholder(tf.float32, name='layer7_out')
 
         input_image, keep_prob, vgg_layer3_out, vgg_layer4_out, vgg_layer7_out = load_vgg(sess, vgg_path)
-
         assert mock_load_model.called, \
             'tf.saved_model.loader.load() not called'
         assert mock_load_model.call_args == mock.call(sess, ['vgg16'], vgg_path), \
             'tf.saved_model.loader.load() called with wrong arguments.'
-
         assert input_image == test_input_image, 'input_image is the wrong object'
         assert keep_prob == test_keep_prob, 'keep_prob is the wrong object'
         assert vgg_layer3_out == test_vgg_layer3_out, 'layer3_out is the wrong object'
