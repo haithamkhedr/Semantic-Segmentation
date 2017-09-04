@@ -103,4 +103,5 @@ ENV/
 RUNS/
 data/
 runs/
+summaries/
 .DS_STORE
