@@ -9,6 +9,16 @@ The objective of this project is to Label each pixel of a road in images using a
 
 3- The file project_tests.py contains some tests to ensure the code is working correctly
 
+## Setup
+##### Frameworks and Packages
+ - [Python 3](https://www.python.org/)
+ - [TensorFlow](https://www.tensorflow.org/)
+ - [NumPy](http://www.numpy.org/)
+ - [SciPy](https://www.scipy.org/)
+ 
+##### Dataset
+The [Kitti Road dataset](http://www.cvlibs.net/datasets/kitti/eval_road.php) was used for this project
+
 ## Methodolgy
 The Semantic Segmentation task can be solved using an encoder-decoder network. I used a Fully Convolutional Network (FCN-8) with skip connections as described in [Fully Convolutional Networks for Semantic Segmentation](https://people.eecs.berkeley.edu/~jonlong/long_shelhamer_fcn.pdf)
 
@@ -30,6 +40,11 @@ The Semantic Segmentation task can be solved using an encoder-decoder network. I
 
 ## Results
 
+Here are the results of the model on different scenes
+
+![ScreenShot](imgs/um_000013.png)
+![ScreenShot](imgs/um_000015.png)
+![ScreenShot](imgs/umm_000077.png)
 
 
 
