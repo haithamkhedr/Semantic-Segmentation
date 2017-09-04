@@ -46,5 +46,9 @@ Here are the results of the model on different scenes
 ![ScreenShot](imgs/um_000015.png)
 ![ScreenShot](imgs/umm_000077.png)
 
+## TODO
+1- Try the model on a video
+2- Try it on cityscapes dataset
+3- replace VGG16 with MobileNet for speed optimization
 
 
