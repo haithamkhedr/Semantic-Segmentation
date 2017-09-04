@@ -125,7 +125,7 @@ def gen_test_output(sess, logits, keep_prob, image_pl, data_folder, image_shape)
         yield os.path.basename(image_file), np.array(street_im)
         
 def truncated_norm(std):
-        return tf.truncated_normal_initializer(std)
+        return tf.truncated_normal_initializer(stddev = std)
 
 
 
